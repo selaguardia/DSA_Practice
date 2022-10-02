@@ -5,17 +5,18 @@
 // - search O(1)
 
 // let user = {
-//   age: 54,
+//   age: 30,
 //   name: "Sergio",
 //   magic: true,
 //   scream: function () {
 //     console.log(`AGHHHHH!!!!`);
 //   }
 // }
-
+// console.log(user)
 // console.log(user.age) //O(1)
 // user.spell = 'abra kadabra'; //O(1)
-// console.log(user.scream()) //O(1)
+// user.scream() //O(1)
+// console.log(user)
 
 class HashTable {
   constructor(size) {
@@ -34,7 +35,7 @@ class HashTable {
     let address = this._hash(key);
     if (!this.data[address]) {
       this.data[address] = [];
-    }
+    } 
     this.data[address].push([key, value]);
     return this.data;
   } // O(1)
@@ -61,10 +62,34 @@ class HashTable {
     }
     return keysArray;
   }
+  //! keys without collision
+  // keys() {
+  //   if (!this.data.length) {
+  //     return undefined
+  //   }
+  //   let result = []
+  //   // loop through all the elements
+  //   for (let i = 0; i < this.data.length; i++) {
+  //       // if it's not an empty memory cell
+  //       if (this.data[i] && this.data[i].length) {
+  //         // but also loop through all the potential collisions
+  //         if (this.data.length > 1) {
+  //           for (let j = 0; j < this.data[i].length; j++) {
+  //             result.push(this.data[i][j][0])
+  //           }
+  //         } else {
+  //           result.push(this.data[i][0])
+  //         } 
+  //       }
+  //   }
+  //   return result; 
+  // }
 }
 
-const myHashTable = new HashTable(50);
-myHashTable.set("grapes", 10000);
-myHashTable.set("apples", 54);
-myHashTable.set("oranges", 2);
-console.log(myHashTable.keys("apples"));
+// const myHashTable = new HashTable(50);
+// myHashTable.set("grapes", 10000);
+// console.log(myHashTable.get('grapes'))
+// myHashTable.set("apples", 54);
+// myHashTable.set("oranges", 2);
+// console.log(myHashTable.keys());
+

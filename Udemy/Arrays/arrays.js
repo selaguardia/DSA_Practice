@@ -1,22 +1,79 @@
-// const strings = ['a','b','c','d'];
+const strings = ['a','b','c','d'];
 
-// // accessing === O(1)
-// strings[2];
+// accessing === O(1)
+strings[2];
 
-// // push === O(1)
-// strings.push('e');
+// push === O(1)
+strings.push('e');
 
-// // pop === O(1)
-// strings.pop();
-// strings.pop();
+// pop === O(1)
+strings.pop();
+strings.pop();
 
-// // unshift === O(n)
-// strings.unshift('x');
+// unshift === O(n)
+strings.unshift('x');
 
-// // splice === O(n/2) => O(n)
-// strings.splice(2, 0, 'alien');
+// shift === O(n)
+strings.shift();
 
-// console.log(strings);
+// splice === O(n/2) => O(n)
+// can also delete with splice
+strings.splice(2, 0, 'alien');
+
+console.log(strings);
+
+// ====================================================
+// arrays in js are objects with interger based keys that act like indexes
+
+class MyArray {
+  constructor() {
+    this.length = 0;
+    this.data = {};
+  }
+
+  get(index) {
+    return this.data[index];
+  }
+
+  push(item) {
+    this.data[this.length] = item;
+    this.length++;
+    return this.length;
+  }
+
+  pop() {
+    const lastItem = this.data[this.length - 1];
+    delete this.data[this.length - 1];
+    this.length--;
+    return lastItem;
+  }
+
+  delete(index) {
+    const deletedItem = this.data[index];
+    this.shiftItems(index);
+    return deletedItem;
+  }
+
+  shiftItems(index) {
+    for (let i = index; i < this.length - 1; i++) {
+      this.data[i] = this.data[i + 1];
+    }
+    delete this.data[this.length - 1];
+    this.length--;
+  }
+}
+// method is a function in class
+const newArray = new MyArray();
+newArray.push("Eddie");
+newArray.push("Rica");
+newArray.push("Arya");
+// newArray.pop()
+newArray.delete(2);
+newArray.push("Chico");
+newArray.push("Yesenia");
+newArray.push("Sergio");
+newArray.delete(2);
+console.log(newArray);
 
 // const arrayOfSheep = [
 //   true,
@@ -77,9 +134,9 @@
 // }
 // console.log(getCount2('abracadabra'));
 
+// const isDivisible = (n, x, y) => {
+//   console.log(`n%x ${n%x}`);
+//   console.log(`n%y ${n%y}`);
+// }
+// isDivisible(5,1,2);
 
-const isDivisible = (n, x, y) => {
-  console.log(`n%x ${n%x}`);
-  console.log(`n%y ${n%y}`);
-}
-isDivisible(5,1,2);

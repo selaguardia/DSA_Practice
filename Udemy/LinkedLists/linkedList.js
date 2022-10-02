@@ -1,10 +1,10 @@
 /*
-=== LinkedList ===
-prepend (O)1
-append (O)1
-lookup (O)n
-insert (O)n
-delete (O)n
+=== Linked List ===
+prepend O(1)
+append  O(1)
+lookup  O(n)
+insert  O(n)
+delete  O(n)
 */
 
 // 10 --> 5 --> 16
@@ -21,30 +21,32 @@ delete (O)n
 //     }
 //   }
 // }
-// Use a Node class, or just create inside the method like in lines 49-51
-class Node {
-  constructor(value) {
-    this.value = value,
-    this.next = null
-  }
-}
 
 class LinkedList {
   constructor(value) {
     this.head = {
-      value:value,
+      value: value,
       next: null,
-    }
+    };
     this.tail = this.head;
     this.length = 1;
   }
   append(value) {
-    const newNode = new Node(value);
-    this.tail.next = newNode;
-    this.tail = newNode;
+    const newNode = new Node(value); // v:5, n:null
+    // console.log("newNode: ", newNode);
+    // console.log("this.head: ", this.head); // v:10, n:null
+    // console.log("this.tail: ", this.tail); // v:10, n:null
+    this.tail.next = newNode; // assigns v:10, n: -> v:5, n:null w/o  v:10, n:null
+    // console.log(":::this.tail.next = newNode:::")
+    // console.log("this.head2: ", this.head); 
+    // console.log("this.tail2: ", this.tail);
+    this.tail = newNode; // v:5, n:null, w/o v:10, n:null
+    // console.log(":::this.tail = newNode:::")
+    // console.log("this.head3: ", this.head);
+    // console.log("this.tail3: ", this.tail);
     this.length++;
     return this;
-  } // O(1)
+  }
   prepend(value) {
     const newNode = {
       value: value,
@@ -54,7 +56,50 @@ class LinkedList {
     this.head = newNode;
     this.length++;
     return this;
-  } // O(1)
+  }
+  insert(index, value) {
+    if (index >= this.length) {
+      return this.append(value);
+    }
+    const newNode = new Node(value);
+    const leader = this.traverseToIndex(index - 1);
+    // Udemy solution (not DRY)
+    // const holdingPointer = leader.next;
+    // leader.next = newNode;
+    // newNode.next = holdingPointer;
+    newNode.next = leader.next;
+    leader.next = newNode;
+    this.length++;
+    return this;
+  }
+
+  traverseToIndex(index) {
+    let counter = 0;
+    let currentNode = this.head;
+    while (counter !== index) {
+      currentNode = currentNode.next;
+      counter++;
+    }
+    return currentNode;
+  }
+  remove(index) {
+    // check params
+
+    // my attempt Got it right, but used traverseToIndex 2x
+    // also currentNode would make more sense as unwantedNode or nodeToDelete
+
+    // const leader = this.traverseToIndex(index-1);
+    // const currentNode = this.traverseToIndex(index);
+    // leader.next = currentNode.next;
+
+    const leader = this.traverseToIndex(index - 1);
+    const nodeToDelete = leader.next;
+    leader.next = nodeToDelete.next;
+
+    this.length--;
+    return this;
+  }
+
   printList() {
     const array = [];
     let currentNode = this.head;
@@ -64,41 +109,46 @@ class LinkedList {
     }
     return array;
   }
-  insert(index, value) {
-    // check params
-    if (index >= this.length) {
-      return this.append(value);
+
+  reverse() {
+    if (!this.head.next) {
+      return this.head;
     }
-    const newNode = {
-      value: value,
-      next: null,
-    };
-    const leader = this.traverseToIndex(index - 1);
-    const holdingPointer = leader.next;
-    leader.next = newNode;
-    newNode.next = holdingPointer;
-    this.length++;
-    return this.printList();
-  }
-  traverseToIndex(index) {
-    // check params
-    let counter = 0;
-    let currentNode = this.head;
-    while (counter !== index) {
-      currentNode = currentNode.next;
-      counter++;
+    let first = this.head;
+    this.tail = this.head;
+    let second = first.next;
+
+    while (second) {
+      const temp = second.next;
+      second.next = first;
+      first = second;
+      second = temp;
     }
-    return currentNode;
+    this.head.next = null;
+    this.head = first;
+    return this;
   }
 }
 
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+// 10 --> 5 --> 16
 const myLinkedList = new LinkedList(10);
+
 myLinkedList.append(5);
 myLinkedList.append(16);
-myLinkedList.prepend(1);
-console.log(myLinkedList.printList());
-myLinkedList.insert(2, 99);
-myLinkedList.insert(5, 49);
-myLinkedList.insert(72, 99);
-console.log(myLinkedList.printList());
-console.log(myLinkedList)
+// myLinkedList.append(1);
+// myLinkedList.prepend(1);
+// myLinkedList.insert(2, 99);
+// myLinkedList.insert(20,88);
+// myLinkedList.insert(5, 12);
+// console.log(myLinkedList.printList());
+// myLinkedList.remove(1)
+// console.log(myLinkedList.printList());
+// myLinkedList.reverse();
+// console.log(myLinkedList.printList());

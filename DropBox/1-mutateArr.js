@@ -16,18 +16,31 @@ For n = 5 and a = [4, 0, 1, -2, 3] , the output should be solution(n, a) = [4, 5
 So, the resulting array after the mutation will be [4, 5, -1, 2, 1]
 */
 
-const n = 5, a = [4, 0, 1, -2, 3];
-function mutateArr(n, a) {
-  let b = [];
+/*
+n = integer
+a = array
+array length = n
 
+b[i] = a[i - 1] + a[i] + a[i + 1]
+b[0] = 0 + a[i] + a[i + 1]
+b[n-1] = a[i - 1] + a[i] + 0
+*/
+
+const n = 5;
+const a = [4, 0, 1, -2, 3];
+const length = a.length;
+
+const mutate = (int, array) => {
+  let b = [];
+  
   if(n === 1) {
     return a;
   }
 
-  for (let i = 0; i < n; i++) {
-    if(i === 0) {
+  for (let i = 0; i < length; i++) {
+    if ( i === 0) {
       b[i] = 0 + a[i] + a[i + 1];
-    } else if (i === n - 1) {
+    } else if ( i === n - 1) {
       b[i] = a[i - 1] + a[i] + 0;
     } else {
       b[i] = a[i - 1] + a[i] + a[i + 1];
@@ -35,7 +48,4 @@ function mutateArr(n, a) {
   }
   return b;
 }
-console.log(mutateArr(n, a));
-
-
-
+console.log(mutate(n, a));
