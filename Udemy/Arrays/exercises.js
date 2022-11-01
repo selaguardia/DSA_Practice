@@ -35,6 +35,10 @@ const reverseString = string => string.split("").reverse().join("");
 const reverseString2 = string => [...string].reverse().join("");
 // console.log(reverseString2(message));
 
+const reverseString3 = string => [...string].reverse().join("");
+// console.log(reverseString3('Laguardia'));
+
+
 //! merge sorted arrays
 function mergeSortedArrays(array1, array2) {
   const mergedArray = [];
