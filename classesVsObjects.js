@@ -31,8 +31,9 @@ class User {
   }
 }
 
-const userTwo = new User('Eddie', 'Laguardia', 'eddie@woofmail.com');
-userTwo['dob'] = '11/24/2014'
-console.log(`User Two:`)
-console.log(userTwo)
-userTwo.login()
+// const userTwo = new User('Eddie', 'Laguardia', 'eddie@woofmail.com');
+// console.log(userTwo)
+// userTwo['dob'] = '11/24/2014'
+// console.log(`User Two:`)
+// console.log(userTwo)
+// userTwo.login()
